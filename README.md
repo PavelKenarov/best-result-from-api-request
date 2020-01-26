@@ -4,7 +4,11 @@
 - Final result is available [here](http://employees.viaexpo.site/). 
 - API raw result can see inside file test.php, online [here](http://employees.viaexpo.site/test.php)
 
+* * *
+
 I didn't use any additional frameworks, libraries or modules, just pure php code developed to fix problem avatars inside api list.
+
+* * *
 
 There are too many problems with loading avatars and broken images to start develop a real time parser. Also the API endpoint randomly failing. My solution is to store the result into db and additionally download avatars with cron tasks. In order to display good API results, first they must be cached and processed into database. The process has described in section "Cron jobs"
 
@@ -38,11 +42,15 @@ Need to create three cron jobs:
 */15 * * * * /php_path/php /root_path/cron.php getFromBadHost
 ```
 
+* * *
+
 ## Challenges I faced when completing this task:
 
 - Avatar pictures
 
 Major problem are avatars - many of them are not loading or loading process take too much time. There are too many problems with loading avatars and broken images to create a real time parser. For that reason, I think the only solution is keep the result in mysql or some NoSQL db, using cron jobs. After each cron the field "status" has changed and in the end will see only good clean records. The process of avatar extraction can see on section "Cron jobs". 
+
+* * *
 
 - Endpoint failure
 
