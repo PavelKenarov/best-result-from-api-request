@@ -1,6 +1,6 @@
 # Parse employees list from API
 
-- The challenge was to consume the [API](http://hiring.rewardgateway.net/) and output a list of employees using php. 
+- The challenge was to consume the [API](http://hiring.rewardgateway.net/docs/) and output a list of employees using php. 
 - Final result is available [here](http://employees.viaexpo.site/). 
 - API raw result can see inside file test.php, online [here](http://employees.viaexpo.site/test.php)
 
