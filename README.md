@@ -4,8 +4,6 @@
 - Final result is available [here](http://employees.viaexpo.site/). 
 - API raw result can see inside file test.php, online [here](http://employees.viaexpo.site/test.php)
 
-* * *
-
 I didn't use any additional frameworks, libraries or modules, just pure php code developed to fix problem avatars inside api list.
 
 * * *
@@ -41,8 +39,6 @@ Need to create three cron jobs:
 ```shell
 */15 * * * * /php_path/php /root_path/cron.php getFromBadHost
 ```
-
-* * *
 
 ## Challenges I faced when completing this task:
 
