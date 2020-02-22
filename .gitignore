@@ -6,3 +6,5 @@ _windows/laf.xml
 colors.scheme.xml
 debugger.xml
 find.xml
+vcs.xml
+wsl.distributions.xml
