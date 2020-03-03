@@ -48,12 +48,10 @@ class cron
                 $this->_downloadFromBadHost();
                 break;
             case 'processCheckAndGetFromBadHost':
-				
-				$current_process_id = $this->_getProcess();	
-				if (!file_exists("/proc/{$current_process_id}")) {
-					$this->_startProcess();
-				}
-
+                $current_process_id = $this->_getProcess();	
+                if (!file_exists("/proc/{$current_process_id}")) {
+	               $this->_startProcess();
+                }
                 break;
         }
 
@@ -74,11 +72,12 @@ class cron
 	
 	private function _getProcess()
 	{
-		$this->db->query("SELECT proc_id FROM `process` ORDER BY ts LIMIT 1");
-		if(empty($processId))
+		$q = $this->db->query("SELECT proc_id FROM `process` ORDER BY ts LIMIT 1");
+		$process = $q->fetch_assoc();
+		if(empty($process['proc_id']))
 			return $this->_startProcess();
 
-		return $process_id;	
+		return $process['proc_id'];	
 	}
 
     private function _getFromApi()
