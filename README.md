@@ -63,7 +63,7 @@ if(empty($current_process_id)){
 		$this->setProcess($process_id);	
 	}
 }
-```
+``` 
 Now we can start downloading avatar in maximum speed without server overload because the running process will be only one.
 ```shell
 */1 * * * * /php_path/php /root_path/cron.php processCheckAndGetFromBadHost
