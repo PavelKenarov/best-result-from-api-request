@@ -47,6 +47,22 @@ class cron
             case 'getFromBadHost':
                 $this->_downloadFromBadHost();
                 break;
+            case 'processCheckAndGetFromBadHost':
+				
+				$current_process_id = $this->getProcess();	
+				if(empty($current_process_id)){
+					$processId = exec("php /root_path/cron.php canBeDownload > /dev/null 2>&1 & echo $!;");
+					$this->setProcess($process_id);					
+				}else{
+					if (!file_exists("/proc/{$current_process_id}")) {
+						$processId = exec("php /root_path/cron.php canBeDownload > /dev/null 2>&1 & echo $!;");
+						$this->setProcess($process_id);	
+					}
+				}
+
+				die;
+
+                break;
         }
 
     }

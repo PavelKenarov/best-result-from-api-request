@@ -35,10 +35,36 @@ Need to create three cron jobs:
 ```shell
 0 7,12,19,23 * * * /php_path/php /root_path/cron.php canBeDownload
 ```
-- And the last crontab ( will download avatars ) should be turned more often ( on every 15 - 20 minutes ) because avatar pictures was download really slow:
+- And the last crontab ( will download avatars ) should be turned more often. There is two variants to run the last crontab. The easiest way is to run on every 2 - 5 minutes:
 ```shell
-*/15 * * * * /php_path/php /root_path/cron.php getFromBadHost
+*/5 * * * * /php_path/php /root_path/cron.php getFromBadHost
 ```
+but if the pictures are too big and slow to download, there is a danger of overloading the server with too many running processes. So let's do something like modern queue. Here we get the process id and store it: 
+```shell
+php /root_path/cron.php canBeDownload > /dev/null 2>&1 & echo $!;
+```
+Let me explain how we get process id. This part will reset the output:
+```shell
+> /dev/null 2>&1 
+```
+and the last part will return only cleen process id:
+```shell
+& echo $!;
+```
+Here is the whole idea in action:
+```php
+$current_process_id = $this->getProcess();	
+if(empty($current_process_id)){
+	$processId = exec("php /root_path/cron.php canBeDownload > /dev/null 2>&1 & echo $!;");
+	$this->setProcess($process_id);					
+}else{
+	if (!file_exists("/proc/{$current_process_id}")) {
+		$processId = exec("php /root_path/cron.php canBeDownload > /dev/null 2>&1 & echo $!;");
+		$this->setProcess($process_id);	
+	}
+}
+```
+
 
 ## Challenges I faced when completing this task:
 
