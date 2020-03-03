@@ -48,12 +48,10 @@ class cron
                 $this->_downloadFromBadHost();
                 break;
             case 'processCheckAndGetFromBadHost':
-				
-				$current_process_id = $this->_getProcess();	
-				if (!file_exists("/proc/{$current_process_id}")) {
-					$this->_startProcess();
-				}
-
+                $current_process_id = $this->_getProcess();	
+                if (!file_exists("/proc/{$current_process_id}")) {
+	               $this->_startProcess();
+                }
                 break;
         }
 
