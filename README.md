@@ -51,7 +51,7 @@ and the last part will return only cleen process id:
 ```shell
 & echo $!;
 ```
-Here is the whole idea in action:
+After that need to check if the process exist inside "/proc/" folder ( !file_exists("/proc/{$current_process_id}") ). Here is the whole idea in action:
 ```php
 $current_process_id = $this->getProcess();	
 if(empty($current_process_id)){
@@ -63,6 +63,10 @@ if(empty($current_process_id)){
 		$this->setProcess($process_id);	
 	}
 }
+```
+Now we can start downloading avatar in maximum speed without server overload because the running process will be only one.
+```shell
+*/1 * * * * /php_path/php /root_path/cron.php processCheckAndGetFromBadHost
 ```
 
 
