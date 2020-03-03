@@ -27,3 +27,8 @@ ALTER TABLE `employees`
 ALTER TABLE `employees`
   MODIFY `id` bigint(12) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 COMMIT;
+
+CREATE TABLE `process` (
+  `proc_id` bigint(12) UNSIGNED NOT NULL,
+  `ts` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

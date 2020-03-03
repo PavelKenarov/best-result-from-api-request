@@ -49,23 +49,37 @@ class cron
                 break;
             case 'processCheckAndGetFromBadHost':
 				
-				$current_process_id = $this->getProcess();	
-				if(empty($current_process_id)){
-					$processId = exec("php /root_path/cron.php canBeDownload > /dev/null 2>&1 & echo $!;");
-					$this->setProcess($process_id);					
-				}else{
-					if (!file_exists("/proc/{$current_process_id}")) {
-						$processId = exec("php /root_path/cron.php canBeDownload > /dev/null 2>&1 & echo $!;");
-						$this->setProcess($process_id);	
-					}
+				$current_process_id = $this->_getProcess();	
+				if (!file_exists("/proc/{$current_process_id}")) {
+					$this->_startProcess();
 				}
-
-				die;
 
                 break;
         }
 
     }
+	
+	private function _startProcess()
+	{
+		$processId = exec("php /root_path/cron.php canBeDownload > /dev/null 2>&1 & echo $!;");
+		if(empty($processId)){
+			$this->_logError('Cron error processing _startProcess()!', $processId);
+			die;
+		}
+		
+		$this->db->query("INSERT INTO `process` (`proc_id`) VALUES ( '" . (int)$processId . "' )");
+		
+		return $process_id;	
+	}
+	
+	private function _getProcess()
+	{
+		$this->db->query("SELECT proc_id FROM `process` ORDER BY ts LIMIT 1");
+		if(empty($processId))
+			return $this->_startProcess();
+
+		return $process_id;	
+	}
 
     private function _getFromApi()
     {
